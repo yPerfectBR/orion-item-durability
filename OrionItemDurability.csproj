@@ -1,0 +1,60 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <RootNamespace>OrionItemDurability</RootNamespace>
+    <AssemblyName>orion.item-durability</AssemblyName>
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+    <OutputPath>$(MSBuildThisFileDirectory)bin\</OutputPath>
+    <CopyLocalLockFileAssemblies>false</CopyLocalLockFileAssemblies>
+    <Version>0.1.0</Version>
+    <PackageId>Orion.Plugins.ItemDurability</PackageId>
+    <Authors>OrionBedrock</Authors>
+    <Company>OrionBedrock</Company>
+    <Description>Orion Bedrock first-party plugin: orion:item-durability</Description>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageProjectUrl>https://github.com/OrionBedrock/orion-item-durability</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/OrionBedrock/orion-item-durability</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageTags>orion;minecraft;bedrock;plugin</PackageTags>
+    <IsPackable>true</IsPackable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="tests/**" />
+    <None Remove="tests/**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Orion.PluginContracts" Version="0.1.8">
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="Orion.Api" Version="0.1.8">
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="plugin.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <Pack>true</Pack>
+      <PackagePath>content/plugins/orion.item-durability/</PackagePath>
+    </None>
+  </ItemGroup>
+
+  <Target Name="CopyPluginBesideManifest" AfterTargets="Build">
+    <ItemGroup>
+      <_PluginOutputs Include="$(TargetPath)" />
+      <_PluginOutputs Include="$(TargetDir)$(TargetName).pdb"
+                      Condition="Exists('$(TargetDir)$(TargetName).pdb')" />
+      <_PluginOutputs Include="$(TargetDir)$(TargetName).deps.json"
+                      Condition="Exists('$(TargetDir)$(TargetName).deps.json')" />
+    </ItemGroup>
+    <Copy SourceFiles="@(_PluginOutputs)"
+          DestinationFolder="$(MSBuildThisFileDirectory)"
+          SkipUnchangedFiles="true" />
+  </Target>
+
+</Project>

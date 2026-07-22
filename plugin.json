@@ -1,0 +1,10 @@
+{
+  "id": "orion:item-durability",
+  "version": "1.0.0",
+  "description": "Item stack durability trait for minecraft:durability items.",
+  "authors": ["Orion"],
+  "main": "OrionItemDurability.OrionItemDurabilityPlugin",
+  "depend": [],
+  "softdepend": [],
+  "provides": ["orion:item-durability"]
+}
